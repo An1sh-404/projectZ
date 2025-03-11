@@ -1,0 +1,32 @@
+{% extends 'home.html' %} 
+{% block title %}
+  Record
+{% endblock title %}
+{% block content %}
+<div class="flex flex-col gap-2 items-start mt-5 ml-8 mr-8">
+  <div class="border-2 w-full p-4">
+    
+    <h1 class="uppercase font-bold">👤{{employeedata.last_name}} <span class=" normal-case font-semibold"> {{employeedata.first_name}}</span></h1> 
+
+
+    <hr />
+    <ul class="text-2xl">
+      <li>ID:{{employeedata.id}}</li>
+      <li>Email:{{employeedata.email}}</li>
+      <li>Phone: {{employeedata.phone}}</li>
+      <li>Address:{{employeedata.address}}</li>
+      <li>City:{{employeedata.city}}</li>
+      <li>Province:{{employeedata.province}}</li>
+      <li>Country:{{employeedata.country}}</li>
+      <li>Entry date:{{employeedata.created_at}}</li>
+    </ul>
+  </div>
+
+  <div class="flex gap-3">
+        <a href="{% url 'dashboard' %}"><button  type="submit" class=" py-2 px-4 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition">Return</button></a>
+        <a href="{% url 'record_edit' employeedata.pk%}"><button type="submit" class=" py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">Update record</button></a>
+        <a href="{% url 'record_delete' employeedata.pk%}"><button type="submit" class=" py-2 px-4 bg-red-600 text-white rounded-lg hover:bg-red-700 transition">Delete record</button></a>
+  </div>
+</div>
+
+{% endblock content %}

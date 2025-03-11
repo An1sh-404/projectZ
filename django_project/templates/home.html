@@ -1,0 +1,121 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <title>{% block title %} Home {% endblock title %}</title>
+  </head>
+  <body>
+    <div class="bg-violet-300">
+      <nav class="flex gap-5 pl-2 p-6 font-bold text-black">
+        <ul>
+          ProjectZ
+        </ul>
+        <ul>
+          <a href="{% url 'dashboard' %}">Dashboard</a>
+        </ul>
+        <ul>
+          <form action="{% url 'logout' %}" method="post" class="inline">
+            {% csrf_token %}
+            <button type="submit" class="inline cursor-pointer">Signout</button>
+          </form>
+        </ul>
+      </nav>
+    </div>
+
+    {% block content %}
+
+    <div class="flex justify-center mt-5">
+      <div class="flex flex-col items-start gap-3">
+        <h1 class="text-4xl font-semibold">Hi,{{user.username}}</h1>
+        
+        <hr class="bg-gray-200 border-0 w-full h-0.5"/>
+        <a href="{% url 'record_new' %}"><button type="submit" class="py-2 px-4 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition">Create a new record</button></a>
+        
+        <hr class="bg-gray-200 border-0 w-full h-0.5"/>
+
+        <table class="w-full">
+          <thead>
+            <tr class="bg-gray-200">
+              <th class="border-2 border-gray-300 px-1 py-1 text-start">ID</th>
+              <th class="border-2 border-gray-300 px-1 py-1 text-start">
+                Name
+              </th>
+              <th class="border-2 border-gray-300 px-1 py-1 text-start">
+                Email
+              </th>
+              <th class="border-2 border-gray-300 px-1 py-1 text-start">
+                Phone
+              </th>
+              <th class="border-2 border-gray-300 px-1 py-1 text-start">
+                Address
+              </th>
+              <th class="border-2 border-gray-300 px-1 py-1 text-start">
+                City
+              </th>
+              <th class="border-2 border-gray-300 px-1 py-1 text-start">
+                Province
+              </th>
+              <th class="border-2 border-gray-300 px-1 py-1 text-start">
+                Country
+              </th>
+              <th class="border-2 border-gray-300 px-1 py-1 text-start">
+                Created at
+              </th>
+              <th class="border-2 border-gray-300 px-1 py-1 text-start">
+                View
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            
+          {% for record in employeedata_list %} 
+            
+            {% if user == record.created_by %}
+
+            <tr>
+              <td class="border-2 border-gray-300 px-0.5 py-0.5 text-start">
+                {{record.id}}
+              </td>
+              <td class="border-2 border-gray-300 px-0.5 py-0.5 text-start">
+                {{record.first_name}} {{record.last_name}}
+              </td>
+              
+              <td class="border-2 border-gray-300 px-0.5 py-0.5 text-start">
+                {{record.email}}
+              </td>
+              <td class="border-2 border-gray-300 px-0.5 py-0.5 text-start">
+                {{record.phone}}
+              </td>
+              <td class="border-2 border-gray-300 px-0.5 py-0.5 text-start">
+                {{record.address}}
+              </td>
+              <td class="border-2 border-gray-300 px-0.5 py-0.5 text-start">
+                {{record.city}}
+              </td>
+              <td class="border-2 border-gray-300 px-0.5 py-0.5 text-start">
+                {{record.province}}
+              </td>
+              <td class="border-2 border-gray-300 px-0.5 py-0.5 text-start">
+                {{record.country}}
+              </td>
+              <td class="border-2 border-gray-300 px-0.5 py-0.5 text-start">
+                {{record.created_at}}
+              </td>
+              <td class="border-2 border-gray-300 px-0.5 py-0.5 text-start">
+                <a href="{{ record.get_absolute_url }}">🟦👁️</a>
+              </td>
+            </tr>
+            {% endif %}
+             
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {% endblock content %}
+  </body>
+</html>

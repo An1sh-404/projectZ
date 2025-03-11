@@ -1,0 +1,4 @@
+@import "tailwindcss" source(none);
+@source "../django_project/templates/*.html";
+@source "../django_project/templates/**/*.html";
+@source "../django_project/**/templates/**/*.html";

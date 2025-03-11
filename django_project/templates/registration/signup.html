@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="mt-5 flex items-center justify-center  bg-gray-200 h-200">
+    <div class="w-full max-w-md bg-white p-6 rounded-3xl shadow-lg">
+        <h2 class="text-2xl font-bold text-center text-gray-700 mb-4">Create an Account</h2>
+
+        <form method="post" class="space-y-4">
+            {% csrf_token %}
+
+            <div>
+                <label for="{{ form.username.id_for_label }}" class="block text-gray-700">Username</label>
+                {{ form.username }}
+                 <small class="text-gray-500">{{ form.username.help_text }}</small>
+                {% if form.username.errors %}
+                    <p class="text-red-500 text-sm">{{ form.username.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            <div>
+                <label for="{{ form.email.id_for_label }}" class="block text-gray-700">Email</label>
+                {{ form.email }}
+                {% if form.email.errors %}
+                    <p class="text-red-500 text-sm">{{ form.email.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            <div>
+                <label for="{{ form.gender.id_for_label }}" class="block text-gray-700">Gender</label>
+                {{ form.gender }}
+                {% if form.gender.errors %}
+                    <p class="text-red-500 text-sm">{{ form.gender.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            <div>
+                <label for="{{ form.password1.id_for_label }}" class="block text-gray-700">Password</label>
+                {{ form.password1 }}
+                 <small class="text-gray-500">{{ form.password1.help_text }}</small>
+                {% if form.password1.errors %}
+                    <ul class="text-red-500 text-sm">
+                        {% for error in form.password1.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+
+            <div>
+                <label for="{{ form.password2.id_for_label }}" class="block text-gray-700">Confirm Password</label>
+                {{ form.password2 }}
+                 <small class="text-gray-500">{{ form.password2.help_text }}</small>
+                {% if form.password2.errors %}
+                    <p class="text-red-500 text-sm">{{ form.password2.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            <button type="submit" class="w-full py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                Create account <span class="ml-1">👤</span>
+            </button>
+        </form>
+
+        <p class="mt-4 text-center text-gray-600">Already have an account? 
+            <a href="{% url 'login' %}" class="text-blue-500 hover:underline">Login</a>
+        </p>
+    </div>
+</div>
+
+
+{% endblock content%}
